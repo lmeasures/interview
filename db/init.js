@@ -1,3 +1,7 @@
+print("######################################################### START #############################################################");
+
+db = db.getSiblingDB("UserData")
+
 db.createUser({
     user: 'admin',
     pwd: 'password',
@@ -11,7 +15,7 @@ db.createUser({
   
   db.createCollection('users');
   
-  db.entries.insertMany([
+  db.users.insertMany([
     {
       name: 'John Doe',
       email: 'john@example.com',
@@ -25,4 +29,6 @@ db.createUser({
       role: 'admin',
     },
   ]);
+  
+print("#########################################################  END  #############################################################");
   
