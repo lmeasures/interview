@@ -1,8 +1,5 @@
 version: '3.7'
 
-networks:
-  inet:
-
 services:
   mongo:
     image: mongo:latest
@@ -12,8 +9,6 @@ services:
     volumes:
       - ./db/:/docker-entrypoint-initdb.d/:ro
       - mongodb_data:/data/db
-    networks:
-      - inet
 
   api:
     build:
@@ -25,8 +20,6 @@ services:
       - ./api/src:/app/src
     depends_on:
       - mongo
-    networks:
-      - inet
 
 
 volumes:
