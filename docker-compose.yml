@@ -22,7 +22,7 @@ services:
     ports:
       - 3001:3001
     volumes:
-      - ./api/src:/src
+      - ./api/src:/app/src
     depends_on:
       - mongo
     networks:

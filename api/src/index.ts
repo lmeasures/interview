@@ -1,11 +1,15 @@
 import express, { Request, Response } from 'express';
 import { MongoClient } from 'mongodb';
 
-const connectionString = 'mongodb://localhost:27017/mydb';
+
+// docker networks not functioning correctly- had to use docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mongodb
+// to determine the networked ip of the DB container and effectively brute-force a connection from the DB.
+// const connectionString = 'mongodb://localhost:27017/mydb';
+const connectionString = 'mongodb://172.24.0.2:27017/UserData';
 
 const app = express();
 app.use(express.json());
-
+ 
 const PORT = 3001;
 
 const userSearchHandler = async (req: Request, res: Response) => {
@@ -14,16 +18,15 @@ const userSearchHandler = async (req: Request, res: Response) => {
         const db = client.db();
         const usersCollection = db.collection('users');
 
-        const str = req.params.search
+        const searchString = req.query.search as string;
 
-        const regex = new RegExp(req.params.search, "i");
-
+        const regex = new RegExp(searchString, "i");
         const dbQuery = { name: regex };
         const results = await usersCollection
                                 .find(dbQuery)
                                 .toArray();
-
-        client.close();
+ 
+        client.close(); 
         
         console.log("Results, get!: ");
         results.forEach(user => {
@@ -34,7 +37,7 @@ const userSearchHandler = async (req: Request, res: Response) => {
     }   
     catch (e) {
         console.error("Error searching for users", e);
-        res.status(500);
+        res.status(500).send();
     }
 }
 
@@ -59,11 +62,11 @@ const postUserHandler = async (req: Request, res: Response) => {
 
         client.close();
 
-        res.status(204);
+        res.status(201).send();
     }
     catch(e){
         console.error("Error writing user to database: ", e)
-        res.status(500);
+        res.status(500).send();
     }
 }
 
@@ -84,5 +87,5 @@ app.get("/status", (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log("Server Listening on PORT:", PORT);
+    console.log("Server Listening on PORT: ", PORT);
 })
