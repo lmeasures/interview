@@ -4,8 +4,8 @@ import { MongoClient } from 'mongodb';
 
 // docker networks not functioning correctly- had to use docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mongodb
 // to determine the networked ip of the DB container and effectively brute-force a connection from the DB.
-// const connectionString = 'mongodb://localhost:27017/mydb';
-const connectionString = 'mongodb://172.24.0.2:27017/UserData';
+const connectionString = 'mongodb://interview-mongo-1.interview_default:27017/UserData';
+// const connectionString = 'mongodb://172.24.0.2:27017/UserData';
 
 const app = express();
 app.use(express.json());
