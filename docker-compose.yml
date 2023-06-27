@@ -5,4 +5,23 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./init.js:/docker-entrypoint-initdb.d/init.js:ro
+      - ./init.js:/init.js
+      - mongodb_data:/data/db
+    networks:
+      - inet
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongodb
+    networks:
+      - inet
+
+networks:
+  inet:
+
+volumes:
+  mongodb_data:
