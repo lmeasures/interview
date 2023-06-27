@@ -73,6 +73,7 @@ app.post("/user", postUserHandler);
 
 app.get("/", (req: Request, res: Response) => {
     console.log("Hello World!");
+    res.status(204).send();
 });
 
 app.get("/status", (req, res) => {
