@@ -1,0 +1,25 @@
+.searchBox-Container {
+    display:flex;
+    overflow:hidden;
+    height:3.5vh;
+    width: 65vw;
+    border-radius:20px;
+    border: grey 1px solid;
+
+    .searchBox-Button{
+        display:block;
+        width:5vw;
+        background-color:#ee1e64;
+        color:white;
+        border:none;
+    }
+    .searchBox-Input{
+        width: calc(100% - 5vw);
+        border:none;
+        padding-left:1.5vw;
+        font-family: 'Poppins', sans-serif;
+        color:#1a1a1a
+    }
+
+}
+
