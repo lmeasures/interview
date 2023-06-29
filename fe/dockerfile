@@ -6,7 +6,8 @@ EXPOSE 3000
 
 COPY ./package.json ./
 RUN npm install
-COPY ./node_modules ./
-COPY . ./
+
+COPY ./src/ ./src/
+
 
 CMD ["npm", "run", "start"]
