@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express, { Request, Response } from 'express';
 import { MongoClient } from 'mongodb';
 
@@ -5,10 +6,14 @@ const connectionString = 'mongodb://interview-mongo-1.interview_default:27017/Us
 
 const app = express();
 app.use(express.json());
- 
+
+app.use(cors());
+
 const PORT = 3001;
 
 const userSearchHandler = async (req: Request, res: Response) => {
+    if(req.query.search as string === " ") res.status(400).send("Bad Request");
+    if(req.query.search as string === "") res.status(204).send([])
     try{
         const client = await MongoClient.connect(connectionString);
         const db = client.db();

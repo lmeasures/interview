@@ -3,10 +3,11 @@ import './searchBox.scss';
 interface ISearchBox {
     value: string,
     onChange: React.Dispatch<React.SetStateAction<string>>,
-    onSubmit: () => void
+    onSubmit: () => void,
+    onBlur: () => void,
 }
 
-const SearchBox: React.FC<ISearchBox> = ({value, onChange}: ISearchBox) => {
+const SearchBox: React.FC<ISearchBox> = ({value, onChange, onSubmit, onBlur}: ISearchBox) => {
     
     return (
 
@@ -17,9 +18,11 @@ const SearchBox: React.FC<ISearchBox> = ({value, onChange}: ISearchBox) => {
                 value={value}
                 placeholder="Search for a user..."
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+                onBlur={() => {onBlur()}}
             /> 
             <button 
                 className="searchBox-Button"
+                onClick={()=>{onSubmit()}}
             >
                 Go!
             </button>

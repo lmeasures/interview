@@ -2,7 +2,7 @@
     display:flex;
     overflow:hidden;
     height:3.5vh;
-    width: 65vw;
+    width: 50vw;
     border-radius:20px;
     border: grey 1px solid;
 
@@ -12,6 +12,7 @@
         background-color:#ee1e64;
         color:white;
         border:none;
+        cursor:crosshair;
     }
     .searchBox-Input{
         width: calc(100% - 5vw);

@@ -28,6 +28,18 @@ db.createUser({
       phone: '9876543210',
       role: 'admin',
     },
+    {
+      name: 'Jayd Googloo',
+      email: 'janfdae@example.com',
+      phone: '9876543210',
+      role: 'admin',
+    },
+    {
+      name: 'Jeeb Smmth',
+      email: 'jjebe@example.com',
+      phone: '9876543210',
+      role: 'admin',
+    },
   ]);
   
 print("#########################################################  END  #############################################################");

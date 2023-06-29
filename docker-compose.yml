@@ -21,6 +21,18 @@ services:
     depends_on:
       - mongo
 
+  app:
+    build:
+      context: ./fe
+      dockerfile: dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./fe:/app
+      - ./fe/src:/app/src
+    depends_on:
+      - api
+
 
 volumes:
   mongodb_data:
