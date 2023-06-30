@@ -29,11 +29,6 @@ const userSearchHandler = async (req: Request, res: Response) => {
                                 .toArray();
  
         client.close(); 
-        
-        console.log("Results, get!: ");
-        results.forEach(user => {
-            console.log(user);
-        });
 
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(200).send(results);

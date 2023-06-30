@@ -17,6 +17,7 @@ const App = () => {
   const [searchSuggestionsVisible, setSearchSuggestionsVisible] = React.useState<boolean>(false);
   const [searchResults, setSearchResults] = React.useState<Array<UserModel>>([]);
   const [displaySearchResults, setDisplaySearchResults] = React.useState<boolean>(false); 
+  const [newUserModalVisible, setNewUserModalVisible] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     if(searchText && searchText.length > 1){
@@ -48,8 +49,17 @@ const App = () => {
   }
 
   const handleSuggestionClicked = async (text: string) => {
+    console.log(text);
     handleSubmit(text);
     setSearchText(text);
+  }
+
+  const toggleNewUserModal = (override?: boolean) => {
+    setNewUserModalVisible(override ?? !newUserModalVisible);
+  }
+
+  const submitNewUser = () => {
+
   }
 
 
@@ -88,6 +98,34 @@ const App = () => {
         </div>
       </div>
       )}
+
+      <button 
+        className="AddUser-Button"
+        onClick={() => {toggleNewUserModal()}}
+        style={{
+          position:"absolute",
+          bottom:"2vh"
+        }}
+      >
+        New User +
+      </button>
+
+      {newUserModalVisible && (
+      <div className="AddUser-Container">
+          <input id="AddUser-FirstName" className="AddUser-NameField" placeholder="First Name"/>
+          <input id="AddUser-LastName" className="AddUser-NameField" placeholder="Last Name"/>
+          <input id="AddUser-Jobtitle" className="AddUser-DetailField" placeholder="Job title"/>
+          <input id="AddUser-Phone" className="AddUser-DetailField" placeholder="Phone"/>
+          <input id="AddUser-Email" className="AddUser-DetailField" placeholder="Email"/>
+          <button 
+            className="AddUser-Button"
+            onClick={() => {submitNewUser()}}
+          >
+            Create
+          </button>
+      </div>
+      )}
+
     </div>
   );
 }

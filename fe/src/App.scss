@@ -12,7 +12,6 @@
 }
 
 
-
 .SearchResults-Container{
     width:50vw;
     .SearchResults-List{
@@ -45,5 +44,56 @@
                 left:3vw;
             }
         }
+    }
+}
+
+.AddUser-Button{
+    display:block;
+    font-size:0.8em;
+    font-family: 'Poppins', sans-serif;
+    color:white;
+    border-radius: 20px;
+    border: none;
+    box-shadow:0px 0px 3px black;
+    background-color:#ee1e64;
+    height:4vh;
+    margin:2vh auto 0 auto;
+    cursor:pointer;
+    padding-left:1vw;
+    padding-right:1vw;
+}
+
+.AddUser-Container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    border-radius:20px;
+    background-color:white;
+    border:1px solid #ee1e64;
+    padding: 2vh 1vw;
+    width:32vw;
+    position:absolute;
+    bottom:7vh;
+    z-index: 10;
+    .AddUser-NameField{
+        display:block;
+        border-radius:20px;
+        height:3.5vh;
+        width: calc((30vw / 2) - 1.5vw);
+        padding-left:1.5vw;
+        font-size:0.8em;
+        font-family: 'Poppins', sans-serif;
+        border: 1px grey solid;
+    }
+    .AddUser-DetailField{
+        display:block;
+        border-radius:20px;
+        height:3.5vh;
+        width: calc((30vw / 3) - 1.5vw);
+        margin-top: 2vh;
+        padding-left:1.5vw;
+        font-size:0.8em;
+        font-family: 'Poppins', sans-serif;
+        border: 1px grey solid;
     }
 }
