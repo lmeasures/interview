@@ -66,8 +66,6 @@ const App = () => {
     setNewUserModalVisible(false);
     console.log(newUserData);
 
-    // TODO validate in the UI for phone and email using regex
-
     // TODO submit data
     // TODO response
 
@@ -123,19 +121,18 @@ const App = () => {
       </button>
 
       {newUserModalVisible && (
-      <div className="AddUser-Container">
-          <input id="AddUser-FirstName" className="AddUser-NameField" placeholder="First Name" onChange={(e)=>setNewUserData({...newUserData, firstname: e.target.value})}/>
-          <input id="AddUser-LastName" className="AddUser-NameField" placeholder="Last Name" onChange={(e)=>setNewUserData({...newUserData, lastname: e.target.value})}/>
-          <input id="AddUser-Jobtitle" className="AddUser-DetailField" placeholder="Job title" onChange={(e)=>setNewUserData({...newUserData, role: e.target.value})}/>
-          <input id="AddUser-Phone" className="AddUser-DetailField" placeholder="Phone" onChange={(e)=>setNewUserData({...newUserData, phone: e.target.value})}/>
-          <input id="AddUser-Email" className="AddUser-DetailField" placeholder="Email" onChange={(e)=>setNewUserData({...newUserData, email: e.target.value})}/>
+        <form className="AddUser-Container" onSubmit={() => submitNewUser()}>
+          <input maxLength={100} required className="AddUser-NameField" placeholder="First Name" onChange={(e)=>setNewUserData({...newUserData, firstname: e.target.value})}/>
+          <input maxLength={100} required className="AddUser-NameField" placeholder="Last Name" onChange={(e)=>setNewUserData({...newUserData, lastname: e.target.value})}/>
+          <input maxLength={100} required className="AddUser-DetailField" placeholder="Job title" onChange={(e)=>setNewUserData({...newUserData, role: e.target.value})}/>
+          <input pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$" required className="AddUser-DetailField" placeholder="Phone" onChange={(e)=>setNewUserData({...newUserData, phone: e.target.value})}/>
+          <input type="email" required className="AddUser-DetailField" placeholder="Email" onChange={(e)=>setNewUserData({...newUserData, email: e.target.value})}/>
           <button 
             className="AddUser-Button"
-            onClick={() => {submitNewUser()}}
           >
             Create
           </button>
-      </div>
+        </form>
       )}
 
     </div>

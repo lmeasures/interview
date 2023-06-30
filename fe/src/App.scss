@@ -75,6 +75,12 @@
     position:absolute;
     bottom:7vh;
     z-index: 10;
+
+    input:invalid {
+        border: 1px solid black;
+    }
+      
+      
     .AddUser-NameField{
         display:block;
         border-radius:20px;
@@ -83,7 +89,7 @@
         padding-left:1.5vw;
         font-size:0.8em;
         font-family: 'Poppins', sans-serif;
-        border: 1px grey solid;
+        border: 1px #ee1e64 solid;
     }
     .AddUser-DetailField{
         display:block;
@@ -94,6 +100,6 @@
         padding-left:1.5vw;
         font-size:0.8em;
         font-family: 'Poppins', sans-serif;
-        border: 1px grey solid;
+        border: 1px #ee1e64 solid;
     }
 }
