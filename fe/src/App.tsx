@@ -3,21 +3,8 @@ import './App.scss';
 import SearchBox from './components/searchBox/searchBox';
 import { getUsers } from './services/userService';
 import ListBox from './components/searchSuggestions/listBox';
+import { INewUser, UserModel } from './types/userTypes';
 
-interface UserModel {
-  name: string,
-  role: string,
-  email: string,
-  phone: string
-}
-
-interface INewUser {
-  firstname: string,
-  lastname: string,
-  role: string,
-  email: string,
-  phone: string
-}
 
 const blankNewUserObj: INewUser = {
   firstname: "",
@@ -79,8 +66,11 @@ const App = () => {
     setNewUserModalVisible(false);
     console.log(newUserData);
 
+    // TODO validate in the UI for phone and email using regex
 
-    
+    // TODO submit data
+    // TODO response
+
     setNewUserData(blankNewUserObj);
   }
 

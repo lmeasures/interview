@@ -42,7 +42,7 @@ const userSearchHandler = async (req: Request, res: Response) => {
 const postUserHandler = async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // Validate requestBody
+    // TODO Validate requestBody
 
     try { 
         const client = await MongoClient.connect(connectionString);

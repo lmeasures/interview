@@ -1,3 +1,4 @@
+import { INewUser, UserModel } from "../types/userTypes";
 
 
 export const getUsers = async (searchText: string) => {
@@ -17,3 +18,7 @@ export const getUsers = async (searchText: string) => {
         return null
     });
   }
+
+export const submitNewUser = async (newUserData: INewUser) => {
+    //TODO validate data, throw error if bad req.
+}
