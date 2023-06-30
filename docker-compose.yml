@@ -18,8 +18,6 @@ services:
       - 3001:3001
     volumes:
       - ./api/src:/app/src
-    depends_on:
-      - mongo
 
   app:
     build:
@@ -28,10 +26,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./fe:/app
-      - ./fe/src:/app/src
-    depends_on:
-      - api
+      - ./fe/src:/fe/src
 
 
 volumes:
