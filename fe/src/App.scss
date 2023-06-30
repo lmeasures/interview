@@ -11,32 +11,7 @@
     top:0;
 }
 
-.SearchSuggestions-Container{
-    width: calc(50vw);
-    .SearchSuggestions-List{
-        display:flex;
-        position:relative;
-        flex-direction:column;
-        border-radius:20px;
-        background-color:white;
-        padding-left:13px;
-        padding-top:6px;
-        margin-top:10px;
-        font-family: 'Poppins', sans-serif;
-        font-size:small;
-        border: 1px solid #ee1e64;
 
-        .SearchSuggestions-Item{
-            display:block;
-            width:20vw;
-            margin-bottom:6px;
-            cursor:grab;
-        }
-        .SearchSuggestions-HighlightedText{
-            background-color:yellow;
-        }
-    }
-}
 
 .SearchResults-Container{
     width:50vw;

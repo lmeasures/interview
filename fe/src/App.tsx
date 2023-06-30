@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.scss';
-import SearchBox from './components/searchBox';
+import SearchBox from './components/searchBox/searchBox';
 import { getUsers } from './services/userService';
+import ListBox from './components/searchSuggestions/listBox';
 
 interface UserModel {
   name: string,
@@ -18,7 +19,7 @@ const App = () => {
   const [displaySearchResults, setDisplaySearchResults] = React.useState<boolean>(false); 
 
   React.useEffect(() => {
-    if(searchText){
+    if(searchText && searchText.length > 1){
       populateSuggestions();
     }
     else {
@@ -49,19 +50,8 @@ const App = () => {
   const handleSuggestionClicked = async (text: string) => {
     handleSubmit(text);
     setSearchText(text);
-    setSearchSuggestionsVisible(false);
   }
 
-  const highlightText = (text: string, searchText: string) => {
-    const textArray = text.toLowerCase().split(searchText.toLowerCase());
-    if(textArray.length > 1){
-      return (
-        <>
-          {text.substring(0, textArray[0].length)}<span className="SearchSuggestions-HighlightedText">{searchText}</span>{text.substring(text.length-textArray[1].length)}
-        </>
-      )
-    }
-  }
 
   return (
     <div className="App">
@@ -74,15 +64,11 @@ const App = () => {
       />
       
       {searchSuggestionsVisible && (
-      <div className="SearchSuggestions-Container">
-        <ul className="SearchSuggestions-List">
-          {searchSuggestions.map((item, index)=>(
-              <li key={index} className="SearchSuggestions-Item" onClick={() => {handleSuggestionClicked(item.name)}}>
-                {highlightText(item.name, searchText)}
-              </li>
-          ))}
-        </ul>
-      </div>
+        <ListBox 
+          textList={searchSuggestions.map((a)=>a.name)} 
+          searchText={searchText} 
+          handleItemClicked={(text) => handleSuggestionClicked(text)}
+        />
       )} 
 
       {displaySearchResults && (
