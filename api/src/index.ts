@@ -2,7 +2,7 @@ import cors from 'cors';
 import express, { Request, Response } from 'express';
 import { MongoClient } from 'mongodb';
 
-const connectionString = 'mongodb://interview-mongo-1.interview_default:27017/UserData';
+const connectionString = 'mongodb://interview-mongo.interview_default:27017/UserData';
 
 const app = express();
 app.use(express.json());
@@ -12,6 +12,7 @@ app.use(cors());
 const PORT = 3001;
 
 const userSearchHandler = async (req: Request, res: Response) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     if(req.query.search as string === " ") res.status(400).send("Bad Request");
     if(req.query.search as string === "") res.status(204).send([])
     try{
@@ -34,6 +35,7 @@ const userSearchHandler = async (req: Request, res: Response) => {
             console.log(user);
         });
 
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(200).send(results);
     }   
     catch (e) {
@@ -43,6 +45,7 @@ const userSearchHandler = async (req: Request, res: Response) => {
 }
 
 const postUserHandler = async (req: Request, res: Response) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Validate requestBody
 

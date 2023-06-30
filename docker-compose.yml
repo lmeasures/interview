@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   mongo:
+    container_name: interview-mongo
     image: mongo:latest
     restart: always
     ports:
@@ -11,6 +12,7 @@ services:
       - mongodb_data:/data/db
 
   api:
+    container_name: interview-api
     build:
       context: ./api
       dockerfile: dockerfile
@@ -20,6 +22,7 @@ services:
       - ./api/src:/app/src
 
   app:
+    container_name: interview-app
     build:
       context: ./fe
       dockerfile: dockerfile
