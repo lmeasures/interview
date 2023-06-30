@@ -11,13 +11,30 @@ interface UserModel {
   phone: string
 }
 
+interface INewUser {
+  firstname: string,
+  lastname: string,
+  role: string,
+  email: string,
+  phone: string
+}
+
+const blankNewUserObj: INewUser = {
+  firstname: "",
+  lastname: "",
+  role: "",
+  email: "",
+  phone: ""
+}
+
 const App = () => {
   const [searchText, setSearchText] = React.useState('');
   const [searchSuggestions, setSearchSuggestions] = React.useState<Array<UserModel>>([]);
   const [searchSuggestionsVisible, setSearchSuggestionsVisible] = React.useState<boolean>(false);
   const [searchResults, setSearchResults] = React.useState<Array<UserModel>>([]);
   const [displaySearchResults, setDisplaySearchResults] = React.useState<boolean>(false); 
-  const [newUserModalVisible, setNewUserModalVisible] = React.useState<boolean>(false)
+  const [newUserModalVisible, setNewUserModalVisible] = React.useState<boolean>(false);
+  const [newUserData, setNewUserData] = React.useState<INewUser>(blankNewUserObj);
 
   React.useEffect(() => {
     if(searchText && searchText.length > 1){
@@ -59,7 +76,12 @@ const App = () => {
   }
 
   const submitNewUser = () => {
+    setNewUserModalVisible(false);
+    console.log(newUserData);
 
+
+    
+    setNewUserData(blankNewUserObj);
   }
 
 
@@ -112,11 +134,11 @@ const App = () => {
 
       {newUserModalVisible && (
       <div className="AddUser-Container">
-          <input id="AddUser-FirstName" className="AddUser-NameField" placeholder="First Name"/>
-          <input id="AddUser-LastName" className="AddUser-NameField" placeholder="Last Name"/>
-          <input id="AddUser-Jobtitle" className="AddUser-DetailField" placeholder="Job title"/>
-          <input id="AddUser-Phone" className="AddUser-DetailField" placeholder="Phone"/>
-          <input id="AddUser-Email" className="AddUser-DetailField" placeholder="Email"/>
+          <input id="AddUser-FirstName" className="AddUser-NameField" placeholder="First Name" onChange={(e)=>setNewUserData({...newUserData, firstname: e.target.value})}/>
+          <input id="AddUser-LastName" className="AddUser-NameField" placeholder="Last Name" onChange={(e)=>setNewUserData({...newUserData, lastname: e.target.value})}/>
+          <input id="AddUser-Jobtitle" className="AddUser-DetailField" placeholder="Job title" onChange={(e)=>setNewUserData({...newUserData, role: e.target.value})}/>
+          <input id="AddUser-Phone" className="AddUser-DetailField" placeholder="Phone" onChange={(e)=>setNewUserData({...newUserData, phone: e.target.value})}/>
+          <input id="AddUser-Email" className="AddUser-DetailField" placeholder="Email" onChange={(e)=>setNewUserData({...newUserData, email: e.target.value})}/>
           <button 
             className="AddUser-Button"
             onClick={() => {submitNewUser()}}
