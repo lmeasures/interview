@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import SearchBox from './components/searchBox/searchBox';
-import { getUsers } from './services/userService';
+import { getUsers, submitNewUser } from './services/userService';
 import ListBox from './components/searchSuggestions/listBox';
 import { INewUser, UserModel } from './types/userTypes';
 
@@ -62,16 +62,27 @@ const App = () => {
     setNewUserModalVisible(override ?? !newUserModalVisible);
   }
 
-  const submitNewUser = () => {
+  const handleSubmitNewUser = async () => {
     setNewUserModalVisible(false);
-    console.log(newUserData);
 
-    // TODO submit data
-    // TODO response
+    const newUser: UserModel = {
+      name: `${newUserData.firstname} ${newUserData.lastname}`,
+      email: newUserData.email.replaceAll(" ", "").replaceAll("\n", ""),
+      phone: newUserData.phone.replaceAll(" ", "").replaceAll("\n", ""),
+      role: newUserData.role
+    }
 
+    try{
+      const response = await submitNewUser(newUser);
+      //TODO do something with response to show onscreen that the new user has been created
+    }
+    catch(e){
+      console.error("An error occurred when adding a new user: ", e)
+    }
     setNewUserData(blankNewUserObj);
   }
 
+  //TODO - clicking suggestion does nothing rn
 
   return (
     <div className="App">
@@ -121,11 +132,11 @@ const App = () => {
       </button>
 
       {newUserModalVisible && (
-        <form className="AddUser-Container" onSubmit={() => submitNewUser()}>
+        <form className="AddUser-Container" onSubmit={() => handleSubmitNewUser()}>
           <input maxLength={100} required className="AddUser-NameField" placeholder="First Name" onChange={(e)=>setNewUserData({...newUserData, firstname: e.target.value})}/>
           <input maxLength={100} required className="AddUser-NameField" placeholder="Last Name" onChange={(e)=>setNewUserData({...newUserData, lastname: e.target.value})}/>
           <input maxLength={100} required className="AddUser-DetailField" placeholder="Job title" onChange={(e)=>setNewUserData({...newUserData, role: e.target.value})}/>
-          <input pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$" required className="AddUser-DetailField" placeholder="Phone" onChange={(e)=>setNewUserData({...newUserData, phone: e.target.value})}/>
+          <input pattern="^\d{11}$" required className="AddUser-DetailField" placeholder="Phone" onChange={(e)=>setNewUserData({...newUserData, phone: e.target.value})}/>
           <input type="email" required className="AddUser-DetailField" placeholder="Email" onChange={(e)=>setNewUserData({...newUserData, email: e.target.value})}/>
           <button 
             className="AddUser-Button"

@@ -2,6 +2,16 @@ import cors from 'cors';
 import express, { Request, Response } from 'express';
 import { MongoClient } from 'mongodb';
 
+interface UserModel {
+    name: string,
+    role: string,
+    email: string,
+    phone: string
+}
+
+const phoneRegex = /^\d{11}$/;
+const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
 const connectionString = 'mongodb://interview-mongo.interview_default:27017/UserData';
 
 const app = express();
@@ -42,7 +52,13 @@ const userSearchHandler = async (req: Request, res: Response) => {
 const postUserHandler = async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // TODO Validate requestBody
+    const {name, email, phone, role}: UserModel = req.body.newUserData;
+    console.log(name, email, phone, role);
+
+    if(/\d/.test(name) || name.length > 199) {res.status(400).send({Message: "Bad Request- Invalid Name"}); return};
+    if(/\d/.test(role) || name.length > 199) {res.status(400).send({Message: "Bad Request- Invalid Role"}); return};
+    if(!phoneRegex.test(phone)) {res.status(400).send({Message: "Bad Request- Invalid Phone Number"}); return};
+    if(!emailRegex.test(email) || email.length > 199) {res.status(400).send({Message: "Bad Request- Invalid Email"}); return};
 
     try { 
         const client = await MongoClient.connect(connectionString);
@@ -50,10 +66,10 @@ const postUserHandler = async (req: Request, res: Response) => {
         const usersCollection = db.collection('users');
 
         const newUser = {
-            name: req.body.name,
-            email: req.body.email,
-            phone: req.body.phone,
-            role: req.body.role,
+            name: name,
+            email: email,
+            phone: phone,
+            role: role,
         }
 
         const response = await usersCollection.insertOne(newUser);
