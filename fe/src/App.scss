@@ -13,11 +13,12 @@
 
 
 .SearchResults-Container{
-    width:50vw;
+    width:52vw;
     .SearchResults-List{
         display: flex;
-        justify-content: space-between;
+        padding-left:1vw;
         width: 100%;
+        justify-content: left;
         flex-direction: row;
         flex-wrap: wrap;
         align-content: flex-start;
@@ -26,6 +27,7 @@
         .SearchResults-Item{
             display:block;
             margin-bottom:3vh;
+            margin-right:1.5vw;
             border:1px white solid;
             position:relative;
             border-radius:20px;

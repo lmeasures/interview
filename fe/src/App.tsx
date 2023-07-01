@@ -34,7 +34,7 @@ const App = () => {
 
   React.useEffect(() => {
     setDisplaySearchResults(!!searchResults);
-  })
+  }, [searchResults])
 
   const populateSuggestions = async () => {
     const results: UserModel[] = await getUsers(searchText)
