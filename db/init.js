@@ -1,5 +1,3 @@
-print("######################################################### START #############################################################");
-
 db = db.getSiblingDB("UserData")
 
 db.createUser({
@@ -20,27 +18,25 @@ db.createUser({
       name: 'John Doe',
       email: 'john@example.com',
       phone: '1234567890',
-      role: 'user',
+      role: 'Engineer',
     },
     {
       name: 'Jane Smith',
       email: 'jane@example.com',
       phone: '9876543210',
-      role: 'admin',
+      role: 'Line Manager',
     },
     {
-      name: 'Jayd Googloo',
-      email: 'janfdae@example.com',
-      phone: '9876543210',
-      role: 'admin',
+      name: 'Lee Measures',
+      email: 'just@getMeasures.dev',
+      phone: '07763504590',
+      role: 'Contender',
     },
     {
-      name: 'Jeeb Smmth',
-      email: 'jjebe@example.com',
-      phone: '9876543210',
-      role: 'admin',
-    },
+      name: 'Jean Luc Picard',
+      email: 'winefordays@chateaupicard.com',
+      phone: '01337859645',
+      role: 'Admiral (Retired)',
+    }
   ]);
-  
-print("#########################################################  END  #############################################################");
   
