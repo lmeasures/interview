@@ -29,10 +29,10 @@ export const submitNewUser = async (newUserData: UserModel) => {
     })
     .then((response) =>{
         if(response.status === 201) console.log("is ok");
-        return
+        return response;
     })
     .catch((e) => {
         console.error("Error occurred adding new user: ", e);
-        return
+        return e;
     })
 }

@@ -105,3 +105,23 @@
         border: 1px #ee1e64 solid;
     }
 }
+.AddUser-SubmitStatus{
+    display:block;
+    position:absolute;
+    bottom:9vh;
+    z-index:11;
+    .AddUser-SubmitStatus-Success{
+        color:white;
+        background-color: green;
+        padding:1vh 1.5vw;
+        border-radius:20px;
+        box-shadow: 1px 1px 3px black;
+    }
+    .AddUser-SubmitStatus-Failure{
+        color:white;
+        background-color: red;
+        padding:1vh 1.5vw;
+        border-radius:20px;
+        box-shadow: 1px 1px 3px black;
+    }
+}

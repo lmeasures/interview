@@ -14,6 +14,9 @@ const blankNewUserObj: INewUser = {
   phone: ""
 }
 
+type ISubmitStatus = 'failure' | 'success' | 'none';
+
+
 const App = () => {
   const [searchText, setSearchText] = React.useState('');
   const [searchSuggestions, setSearchSuggestions] = React.useState<Array<UserModel>>([]);
@@ -22,6 +25,7 @@ const App = () => {
   const [displaySearchResults, setDisplaySearchResults] = React.useState<boolean>(false); 
   const [newUserModalVisible, setNewUserModalVisible] = React.useState<boolean>(false);
   const [newUserData, setNewUserData] = React.useState<INewUser>(blankNewUserObj);
+  const [addUserStatus, setAddUserStatus] = React.useState<ISubmitStatus>('none');
 
   React.useEffect(() => {
     if(searchText && searchText.length > 1){
@@ -36,6 +40,12 @@ const App = () => {
     setDisplaySearchResults(!!searchResults);
     setSearchSuggestionsVisible(false);
   }, [searchResults])
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setAddUserStatus('none');
+    }, 3000);
+  }, [addUserStatus && addUserStatus !== 'none'])
 
   const populateSuggestions = async () => {
     const results: UserModel[] = await getUsers(searchText)
@@ -75,11 +85,12 @@ const App = () => {
 
     try{
       const response = await submitNewUser(newUser);
-      //TODO do something with response to show onscreen that the new user has been created
-      // Some kind of alert toast would be nice, or even a Check/Cross icon over the create button
+      if(response.status === 201) setAddUserStatus('success');
+      setAddUserStatus('failure');
     }
     catch(e){
       console.error("An error occurred when adding a new user: ", e)
+      setAddUserStatus('failure');
     }
     setNewUserData(blankNewUserObj);
   }
@@ -137,7 +148,7 @@ const App = () => {
           <input maxLength={100} required className="AddUser-NameField" placeholder="First Name" onChange={(e)=>setNewUserData({...newUserData, firstname: e.target.value})}/>
           <input maxLength={100} required className="AddUser-NameField" placeholder="Last Name" onChange={(e)=>setNewUserData({...newUserData, lastname: e.target.value})}/>
           <input maxLength={100} required className="AddUser-DetailField" placeholder="Job title" onChange={(e)=>setNewUserData({...newUserData, role: e.target.value})}/>
-          <input pattern="^\d{11}$" required className="AddUser-DetailField" placeholder="Phone" onChange={(e)=>setNewUserData({...newUserData, phone: e.target.value})}/>
+          <input maxLength={11} pattern="^\d{11}$" required className="AddUser-DetailField" placeholder="Phone" onChange={(e)=>setNewUserData({...newUserData, phone: e.target.value})}/>
           <input type="email" required className="AddUser-DetailField" placeholder="Email" onChange={(e)=>setNewUserData({...newUserData, email: e.target.value})}/>
           <button 
             className="AddUser-Button"
@@ -146,6 +157,19 @@ const App = () => {
           </button>
         </form>
       )}
+
+      <div className="AddUser-SubmitStatus" >
+        {addUserStatus === 'success' && (
+          <div className="AddUser-SubmitStatus-Success">
+            &#x2714;
+          </div>
+        )}
+        {addUserStatus === 'failure' && (
+          <div className="AddUser-SubmitStatus-Failure">
+            &#10006;
+          </div>
+        )}
+      </div>
 
     </div>
   );
