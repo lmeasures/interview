@@ -2,9 +2,11 @@
 
 ### Requirements
 ---
-In order to run the fullstack you will require Docker to be installed on your machine.
+In order to run the fullstack you will require Docker to be installed on your machine, and WSL (Windows Subsystem for Linux).
 
-You can find it here:
+Instructions for enabling WSL can be found here: https://learn.microsoft.com/en-us/windows/wsl/install 
+
+You can find the download for Docker Desktop here:
 https://www.docker.com/products/docker-desktop/
 
 
