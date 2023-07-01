@@ -85,8 +85,9 @@ const App = () => {
 
     try{
       const response = await submitNewUser(newUser);
+      console.log(response.status);
       if(response.status === 201) setAddUserStatus('success');
-      setAddUserStatus('failure');
+      else setAddUserStatus('failure');
     }
     catch(e){
       console.error("An error occurred when adding a new user: ", e)

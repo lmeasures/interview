@@ -20,7 +20,7 @@ Once you have Docker Desktop installed and open, do as below:
 - Navigate to the root directory of this project, containing the `docker-compose.yml` file
 - Enter the following command: `docker-compose up --build -d`
 
-At this point docker will begin spinning up 3 containers for the api, db & fe components of the project.
+At this point docker will begin spinning up 3 containers for the `api`, `db` & `fe` components of the project.
 
 - Wait for the logs to report that the three projects have started, as below: 
 ```
