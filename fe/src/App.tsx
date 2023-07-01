@@ -34,6 +34,7 @@ const App = () => {
 
   React.useEffect(() => {
     setDisplaySearchResults(!!searchResults);
+    setSearchSuggestionsVisible(false);
   }, [searchResults])
 
   const populateSuggestions = async () => {
@@ -47,15 +48,15 @@ const App = () => {
   }
 
   const handleSubmit = async (text?: string) => {
-    const results: UserModel[] = await getUsers(text ?? searchText)
+    const results: UserModel[] = await getUsers(text ?? searchText);
     if(!results) return;
     setSearchResults(results);
   }
 
   const handleSuggestionClicked = async (text: string) => {
-    console.log(text);
-    handleSubmit(text);
-    setSearchText(text);
+    await setSearchText(text);
+    await handleSubmit(text);
+    setSearchSuggestionsVisible(false);
   }
 
   const toggleNewUserModal = (override?: boolean) => {
@@ -75,6 +76,7 @@ const App = () => {
     try{
       const response = await submitNewUser(newUser);
       //TODO do something with response to show onscreen that the new user has been created
+      // Some kind of alert toast would be nice, or even a Check/Cross icon over the create button
     }
     catch(e){
       console.error("An error occurred when adding a new user: ", e)
@@ -82,23 +84,22 @@ const App = () => {
     setNewUserData(blankNewUserObj);
   }
 
-  //TODO - clicking suggestion does nothing rn
 
   return (
-    <div className="App">
+    <div className="App" onClick={() => {setSearchSuggestionsVisible(false)}}>
 
       <SearchBox 
         value={searchText} 
         onChange={setSearchText} 
         onSubmit={handleSubmit}
-        onBlur={() => {setSearchSuggestionsVisible(false)}}
+        onBlur={()=>{}}
       />
       
       {searchSuggestionsVisible && (
         <ListBox 
           textList={searchSuggestions.map((a)=>a.name)} 
           searchText={searchText} 
-          handleItemClicked={(text) => handleSuggestionClicked(text)}
+          handleItemClicked={handleSuggestionClicked}
         />
       )} 
 
