@@ -14,8 +14,16 @@ const blankNewUserObj: INewUser = {
   phone: ""
 }
 
-type ISubmitStatus = 'failure' | 'success' | 'none';
+const defaultSubmitStatus: ISubmitStatus = {
+  status: 'none',
+  message: ''
+}
 
+type ISubmitStatus = 
+  {
+    status: 'failure' | 'success' | 'none';
+    message: string;
+  }
 
 const App = () => {
   const [searchText, setSearchText] = React.useState('');
@@ -25,7 +33,7 @@ const App = () => {
   const [displaySearchResults, setDisplaySearchResults] = React.useState<boolean>(false); 
   const [newUserModalVisible, setNewUserModalVisible] = React.useState<boolean>(false);
   const [newUserData, setNewUserData] = React.useState<INewUser>(blankNewUserObj);
-  const [addUserStatus, setAddUserStatus] = React.useState<ISubmitStatus>('none');
+  const [addUserStatus, setAddUserStatus] = React.useState<ISubmitStatus>(defaultSubmitStatus);
 
   React.useEffect(() => {
     if(searchText && searchText.length > 1){
@@ -43,9 +51,9 @@ const App = () => {
 
   React.useEffect(() => {
     setTimeout(() => {
-      setAddUserStatus('none');
-    }, 3000);
-  }, [addUserStatus && addUserStatus !== 'none'])
+      setAddUserStatus({...addUserStatus, status: 'none'});
+    }, 15000);
+  }, [addUserStatus && addUserStatus.status !== 'none'])
 
   const populateSuggestions = async () => {
     const results: UserModel[] = await getUsers(searchText)
@@ -86,12 +94,14 @@ const App = () => {
     try{
       const response = await submitNewUser(newUser);
       console.log(response.status);
-      if(response.status === 201) setAddUserStatus('success');
-      else setAddUserStatus('failure');
+      if(response.status === 201) setAddUserStatus({status: 'success', message: 'New User Added!'});
+      else {
+        setAddUserStatus({status: 'failure', message: `${response.status} ${(await response.json()).message}`})
+      };
     }
     catch(e){
       console.error("An error occurred when adding a new user: ", e)
-      setAddUserStatus('failure');
+      setAddUserStatus({status: 'failure', message: `${e}`});
     }
     setNewUserData(blankNewUserObj);
   }
@@ -160,14 +170,25 @@ const App = () => {
       )}
 
       <div className="AddUser-SubmitStatus" >
-        {addUserStatus === 'success' && (
+        {addUserStatus.status === 'success' && (
           <div className="AddUser-SubmitStatus-Success">
-            &#x2714;
+            &#x2714; {addUserStatus.message}
+            <button 
+              style={{
+                backgroundColor: "rgba(0,0,0,0)",
+                border: "none", color: "white",
+                fontFamily: "'Poppins', sans-serif",
+                cursor: "pointer"
+              }}
+              onClick={()=> {setAddUserStatus(defaultSubmitStatus)}}
+            >
+              X
+            </button>
           </div>
         )}
-        {addUserStatus === 'failure' && (
+        {addUserStatus.status === 'failure' && (
           <div className="AddUser-SubmitStatus-Failure">
-            &#10006;
+            &#10006; {addUserStatus.message}
           </div>
         )}
       </div>

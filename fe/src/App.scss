@@ -108,14 +108,17 @@
 .AddUser-SubmitStatus{
     display:block;
     position:absolute;
-    bottom:9vh;
+    top:3vh;
+    right: 2vw;
     z-index:11;
     .AddUser-SubmitStatus-Success{
         color:white;
-        background-color: green;
+        background-color: #ee1e64;
         padding:10px 15px;
         border-radius:20px;
         box-shadow: 1px 1px 3px black;
+        font-size:0.8em;
+        font-family: 'Poppins', sans-serif;
     }
     .AddUser-SubmitStatus-Failure{
         color:white;
@@ -123,5 +126,7 @@
         padding:10px 15px;
         border-radius:20px;
         box-shadow: 1px 1px 3px black;
+        font-size:0.8em;
+        font-family: 'Poppins', sans-serif;
     }
 }

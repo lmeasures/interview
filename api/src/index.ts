@@ -23,7 +23,7 @@ const PORT = 3001;
 
 const userSearchHandler = async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    if(req.query.search as string === " ") res.status(400).send("Bad Request");
+    if(req.query.search as string === " ") res.status(400).send({message: "Bad Request"});
     if(req.query.search as string === "") res.status(204).send([])
     try{
         const client = await MongoClient.connect(connectionString);
@@ -53,12 +53,11 @@ const postUserHandler = async (req: Request, res: Response) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     const {name, email, phone, role}: UserModel = req.body.newUserData;
-    console.log(name, email, phone, role);
 
-    if(/\d/.test(name) || name.length > 199) {res.status(400).send({Message: "Bad Request- Invalid Name"}); return};
-    if(/\d/.test(role) || name.length > 199) {res.status(400).send({Message: "Bad Request- Invalid Role"}); return};
-    if(!phoneRegex.test(phone)) {res.status(400).send({Message: "Bad Request- Invalid Phone Number"}); return};
-    if(!emailRegex.test(email) || email.length > 199) {res.status(400).send({Message: "Bad Request- Invalid Email"}); return};
+    if(/\d/.test(name) || name.length > 199) {res.status(400).send({message: "Bad Request- Invalid Name"}); return};
+    if(/\d/.test(role) || name.length > 199) {res.status(400).send({message: "Bad Request- Invalid Role"}); return};
+    if(!phoneRegex.test(phone)) {res.status(400).send({message: "Bad Request- Invalid Phone Number"}); return};
+    if(!emailRegex.test(email) || email.length > 199) {res.status(400).send({message: "Bad Request- Invalid Email"}); return};
 
     try { 
         const client = await MongoClient.connect(connectionString);
