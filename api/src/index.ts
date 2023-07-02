@@ -60,9 +60,17 @@ const postUserHandler = async (req: Request, res: Response) => {
     if(!emailRegex.test(email) || email.length > 199) {res.status(400).send({message: "Bad Request- Invalid Email"}); return};
 
     try { 
+
         const client = await MongoClient.connect(connectionString);
         const db = client.db();
         const usersCollection = db.collection('users');
+
+        const dbQuery = { name: name, email: email, phone: phone, role: role };
+        const results = await usersCollection
+                                .find(dbQuery)
+                                .toArray();
+
+        if(results.length > 0) {res.status(400).send({message: "Bad Request- User Already Exists"}); return};
 
         const newUser = {
             name: name,
