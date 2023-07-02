@@ -1,19 +1,19 @@
 # README
 
-![image](https://github.com/lmeasures/interview/assets/52485661/ba775be6-8405-4f74-a123-8f7b1b8a6ce2)
-
-
 ### Requirements
 ---
 In order to run the fullstack you will require Docker to be installed on your machine, and WSL (Windows Subsystem for Linux)((If you are on Windows)).
 
-Instructions for enabling WSL can be found here: https://learn.microsoft.com/en-us/windows/wsl/install 
 
 You can find the download for Docker Desktop here:
 https://www.docker.com/products/docker-desktop/
 
 
-Once you have Docker Desktop installed and open, do as below:
+Docker should advise you on whether or not you need to enable WSL for Docker to function properly, in the event that it does not
+
+Instructions for enabling WSL can be found here: https://learn.microsoft.com/en-us/windows/wsl/install 
+
+Once you have Docker Desktop installed and running, do as below:
 
 ---
  
