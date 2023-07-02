@@ -1,5 +1,8 @@
 # README
 
+![image](https://github.com/lmeasures/interview/assets/52485661/ba775be6-8405-4f74-a123-8f7b1b8a6ce2)
+
+
 ### Requirements
 ---
 In order to run the fullstack you will require Docker to be installed on your machine, and WSL (Windows Subsystem for Linux)((If you are on Windows)).
